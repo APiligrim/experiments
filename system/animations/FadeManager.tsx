@@ -1,11 +1,11 @@
-'use client';
+// 'use client';
 
 import * as React from 'react';
 
 import { FadeConfig } from './BlockFade';
 
 export type FadeParamFn = (index: number) => number;
-export type FadeParamInterval = { initial?: number, interval?: number };
+export type FadeParamInterval = { initial?: number; interval?: number };
 export type FadeParam = FadeParamFn | FadeParamInterval | number;
 
 export interface FadeManagerConfig {
