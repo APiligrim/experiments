@@ -1,10 +1,42 @@
-import { useState } from 'react';
 import styles from '@components/HeroMetamorphosis.module.scss';
+
+import { Canvas } from '@react-three/fiber';
 import { classNames } from '@root/common/utilities';
+import { useEffect, useState, useRef } from 'react';
+import Butterfly from './Butterfly';
+import Link from 'next/link';
 
 export default function HeroMetamorphosis({ selectedImage }) {
   const [uiDarkMode, setUiDarkMode] = useState(false);
-  const [showControls, setShowControls] = useState(true);
+  const [allWords] = useState(['write', 'remember', 'feel', 'change', 'forget', 'imagine']);
+  const [currentWords, setCurrentWords] = useState<string[]>([]);
+  const [scrollY, setScrollY] = useState(0);
+
+  useEffect(() => {
+    const shuffleWords = () => {
+      const shuffled = [...allWords].sort(() => Math.random() - 0.5);
+      setCurrentWords(shuffled);
+    };
+    shuffleWords();
+    const interval = setInterval(() => shuffleWords(), 1000);
+    return () => clearInterval(interval);
+  }, [allWords]);
+
+  const renderAnimatedWords = (startIndex, count, column) => {
+    return currentWords.slice(startIndex, startIndex + count).map((word, index) => (
+      <p key={`${word}-${index}`} className={classNames(styles.wordFade, column === 'left' ? styles[`leftDynamic${index + 1}`] : styles[`rightDynamic${index + 1}`])}>
+        all that you {word}
+      </p>
+    ));
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrollY(window.scrollY);
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   return (
     <div
@@ -19,13 +51,9 @@ export default function HeroMetamorphosis({ selectedImage }) {
         transition: 'all 0.3s ease',
       }}
     >
-      {/* Header */}
       <div
         style={{
           position: 'absolute',
-          //   top: '20px',
-          //   left: '20px',
-          //   right: '20px',
           width: '100%',
           height: '100%',
           display: 'flex',
@@ -34,103 +62,47 @@ export default function HeroMetamorphosis({ selectedImage }) {
           pointerEvents: 'auto',
         }}
       >
+        <div className={styles.background} />
+
         <div className={styles.text}>
+          <div className={styles.butterfly} style={{ position: 'absolute', zIndex: 9 }}>
+            <Canvas>
+              <Butterfly leftWingImage="/left-wing.png" rightWingImage="/right-wing.png" middleBodyImage="/middle-body.png" hideBody={false} />
+            </Canvas>
+          </div>
           <div className={styles.headingRow}>
             <h1 className={classNames(styles.title)}>
               <span className={styles.capitalLetter}>T</span>he <span className={styles.capitalLetter}>M</span>etamorphosis <span className={styles.capitalLetter}>O</span>f
             </h1>
           </div>
-
           <div className={styles.columns}>
-            <div className={classNames(styles.subtext, styles.unfillFont)}>
-              <p> all that you design </p>
-              <p> all that you write</p>
-              <p> all that you love</p>
-              <p> all that you remember</p>
-              <p> all that you feel</p>
+            <div className={classNames(styles.subtext, styles.unfillFont, styles.columnLeft)}>
+              <p className={styles.leftStatic1}>all that you design</p>
+              {renderAnimatedWords(0, 3, 'left')}
+              <p className={styles.leftStatic2}>all that you love</p>
             </div>
-            <div className={classNames(styles.subtext, styles.unfillFont)}>
-              <p> all that you build </p>
-              <p> all that you change</p>
-              <p> all that you battle</p>
-              <p> all that you forget</p>
-              <p> all that you imagine</p>
+            <div className={classNames(styles.subtext, styles.unfillFont, styles.columnRight)}>
+              <p className={styles.rightStatic1}>all that you build</p>
+              {renderAnimatedWords(3, 3, 'right')}
+              <p className={styles.rightStatic2}>all that you battle</p>
+              {renderAnimatedWords(6, 2, 'right')}
             </div>
           </div>
 
           <p className={styles.paragraph}>
-            <span className={styles.capitalLetter}>A</span>ll that you've come here to <span className={styles.capitalLetter}>B</span>ecome
+            <span className={classNames(styles.capitalLetter, styles.paragraphDecorator)}>A</span>ll that you've come here to{' '}
+            <span className={classNames(styles.capitalLetter, styles.paragraphDecorator)}>B</span>ecome
           </p>
+          <Link href="https://pierre.co/" target="_blank" style={{ color: 'var( --color-blue-dark)', borderBottom: 'none', textDecoration: 'none' }}>
+            <p className={styles.company}>Pierre.Co</p>
+          </Link>
+
           <h1 className={styles.subtitle}>
-            <span className={classNames(styles.capitalLetter, styles.subtitleMain)}>C</span>hange <span className={classNames(styles.capitalLetter, styles.subtitleMain)}>L</span>og
-            0.1
+            <span className={classNames(styles.capitalLetter, styles.subtitleMain)}>C</span>hange <span className={classNames(styles.capitalLetter, styles.subtitleMain)}>L</span>
+            og 0.1
           </h1>
         </div>
-        {/* <div>
-          <button
-            onClick={() => setUiDarkMode(!uiDarkMode)}
-            style={{
-              marginLeft: '10px',
-              background: uiDarkMode ? '#333' : '#111',
-              color: 'white',
-            }}
-          >
-            {uiDarkMode ? 'Light UI' : 'Dark UI'}
-          </button>
-          <button
-            onClick={() => setShowControls(!showControls)}
-            style={{
-              marginLeft: '10px',
-              background: uiDarkMode ? '#333' : '#111',
-              color: 'white',
-            }}
-          >
-            {showControls ? 'Hide Controls' : 'Show Controls'}
-          </button>
-        </div> */}
       </div>
-
-      {/* Control Panel */}
-      {/* {showControls && (
-        <div
-          style={{
-            position: 'absolute',
-            bottom: '20px',
-            left: '20px',
-            background: uiDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.5)',
-            padding: '15px',
-            borderRadius: '10px',
-            pointerEvents: 'auto',
-          }}
-        >
-          <h3 style={{ marginTop: 0 }}>Controls</h3>
-          <p>Click on any image to select it</p>
-          <p>Orbit controls are limited to specific angles</p>
-          {selectedImage && (
-            <div style={{ marginTop: '10px' }}>
-              <p>Selected Image:</p>
-              <p>Ring Radius: {selectedImage.radius}</p>
-              <p>Position: {selectedImage.index}</p>
-            </div>
-          )}
-        </div>
-      )} */}
-
-      {/* Status Info */}
-      {/* <div
-        style={{
-          position: 'absolute',
-          top: '80px',
-          right: '20px',
-          background: uiDarkMode ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.5)',
-          padding: '10px',
-          borderRadius: '5px',
-          pointerEvents: 'auto',
-        }}
-      >
-        <p>Total Rings: 11</p>
-        <p>Total Images: 187</p>
-      </div> */}
     </div>
   );
 }

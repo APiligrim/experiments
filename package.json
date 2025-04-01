@@ -1,5 +1,5 @@
 {
-  "name": "nextjs-sass-starter",
+  "name": "Pierre: Changelog",
   "description": "A starting repository for the Internet Development Studio team.",
   "engines": {
     "node": ">=18"
@@ -15,8 +15,11 @@
   "dependencies": {
     "@react-three/drei": "^10.0.5",
     "@react-three/fiber": "^9.1.0",
+    "@react-three/postprocessing": "^3.0.4",
     "aes-js": "^3.1.2",
     "d3": "^7.9.0",
+    "gsap": "^3.12.7",
+    "intersection-observer": "^0.12.2",
     "js-cookie": "^3.0.5",
     "next": "^15.2.2",
     "react": "^19.0.0",

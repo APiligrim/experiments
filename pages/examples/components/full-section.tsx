@@ -22,7 +22,7 @@ function ExampleFullLanding(props) {
       <Navigation />
       <SectionFullHeight>
         <Content>
-          <H1>nextjs-sass-starter</H1>
+          <H1>Pierre: Changelog</H1>
           <Lead style={{ marginTop: `var(--type-scale-5)` }}>
             A lightweight website template to test our design system. You can view this template on GitHub and see how we write websites. <br />
             <br />

@@ -7,11 +7,11 @@ import Package from '@root/package.json';
 export async function generateMetadata({ params, searchParams }) {
   const title = Package.name;
   const description = Package.description;
-  const url = 'https://wireframes.internet.dev';
+  const url = 'https://pierre.co/changelog';
   const handle = '@internetxstudio';
 
   return {
-    metadataBase: new URL('https://wireframes.internet.dev'),
+    metadataBase: new URL('https://pierre.co/changelog'),
     title,
     description,
     url,
@@ -22,7 +22,7 @@ export async function generateMetadata({ params, searchParams }) {
       type: 'website',
       images: [
         {
-          url: 'https://intdev-global.s3.us-west-2.amazonaws.com/template-twitter-summary-large.png',
+          url: 'https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/52e4a0c6-89b7-4a71-bc18-b1e7135ca4f9.png',
           width: 1200,
           height: 628,
         },
@@ -34,7 +34,7 @@ export async function generateMetadata({ params, searchParams }) {
       url,
       handle,
       card: 'summary_large_image',
-      images: ['https://intdev-global.s3.us-west-2.amazonaws.com/template-twitter-summary-large.png'],
+      images: ['https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/52e4a0c6-89b7-4a71-bc18-b1e7135ca4f9.png'],
     },
     icons: {
       icon: '/favicon-32x32.png',
