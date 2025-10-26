@@ -18,6 +18,19 @@
   src: url('https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/b5210f01-cb3f-443e-b55c-0217a2672795.woff') format('woff');
 }
 
+
+@font-face {
+  font-family: 'IosevkaTerm-Regular';
+  src: url('https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/6397be61-3ea4-459d-8a3e-fd95168cb214.woff2') format('woff2');
+}
+
+
+@font-face {
+  font-family: 'SFMonoSquare-Regular';
+  src: url('https://intdev-global.s3.us-west-2.amazonaws.com/public/internet-dev/d94a73b5-d1c5-4a97-9b2d-18e5941833f6.woff') format('woff');
+}
+
+
 html,
 body,
 div,
@@ -448,7 +461,7 @@ body {
   --type-scale-fixed-label: 10px;
 
   
-  --font-family: -apple-system, BlinkMacSystemFont, helvetica neue, helvetica, sans-serif;
+  --font-family: 'SFMonoSquare-Regular';
   --font-family-mono: 'ServerMono-Regular', Consolas, monaco, monospace;
   --font-family-serif: Georgia, Times New Roman, serif;
 
